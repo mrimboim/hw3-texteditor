@@ -77,7 +77,15 @@
 
 
 - WHICH libraries do i need
-  - string 
+  - #include <iostream>
+  - #include <iomanip>
+  - #include <ostream>
+  - #include <stdio.h>=
+  - #include <stdlib.h>
+  - #include <string.h>
+  - #include <fstream>
+  - #include <stack>
+  - #include <vector>
 
 - FUNCTIONS
   - need a display buffer function
