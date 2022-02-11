@@ -10,6 +10,7 @@ using namespace std;
 
 #define MAX_WIDTH 20 // Maximum size of a line
 #define MAX_LINES 30 // Maximum number of lines
+#define MAX_SCREEN_HEIGHT 10 //number of lines displayed
 
 int openFile(string fileName, vector<string> &buffer) // later add pass by ref for data struct
 {
@@ -38,6 +39,15 @@ int openFile(string fileName, vector<string> &buffer) // later add pass by ref f
         return 1;
     }
 }
+
+void display(const int &row, const int &col, const int &topLine)
+{
+    //print out cursor postion using col 
+    //print out numbers with set w 
+    string colCursor(MAX_WIDTH, ' ');
+
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -78,15 +88,17 @@ int main(int argc, char *argv[])
 /*                   MAIN LOOP
 --------------------------------------------------------------*/
 bool exitStatus = false;
-int row = 1;
-int col = 1;
+int row = 0; //what row postion is curoser on from 0-max_screen_height
+int col = 1;//not sure if should start from oone or zero
+int topLine = 1;//what line is at top of screen 
+string prevCommand;
 stack<vector<string>> undo;
 stack<vector<string>> redo;
 
 while(exitStatus == false)
 {
-    //display(const row, const col) buffer -> void func
-    //input(exitStatus, row, col, undo, redo)-> void func
+    display(row, col, topLine); //buffer -> void func
+    //input(exitStatus, prevCommand, row, col, topLine, undo, redo)-> void func
 
 }
 

@@ -130,4 +130,5 @@
   - vector of string vectors function (need to see how getline works first huh) 
   - undo and redo stack and previous undo stack size var (if no time you can just push the etire vec of vecs instead of specififc vecs)
   - row and coulmn vars
-  - previous command var 
+  - topLine so that you can use it to move the display based on top line and row, also useful so you can set topline to size of vector and then after print empty things
+  - previous command var you can use string.empty for prev command thing
