@@ -130,7 +130,10 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
     }
 
      //breaking up the string
-
+    string command = currentCommand.substr(0, currentCommand.find(' '));
+    cout << "current command:" << command << "testifspace" << '\n';
+    string params = currentCommand.substr(currentCommand.find(' '));
+    cout << "current params:" << params << "teststring" << '\n';
 
     //if first part is q set thing to true, if first part is w a s d move w a s d, and if theres a number after
     // if s then call save and move filename to func and save, if i then call insert and move string section. For undo redo pass a number after(for all of these you may need to pass more vars)
