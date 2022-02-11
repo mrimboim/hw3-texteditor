@@ -28,6 +28,7 @@ int openFile(string fileName, vector<string> &buffer) // later add pass by ref f
 
         //check if size of vector is greater then max num lines return 2
         cout << "size of buffer: " << buffer.size() << '\n';
+        if(buffer.size() > MAX_LINES){file.close(); return 2;}
         //if everything returned normally
         file.close();
         return 0;

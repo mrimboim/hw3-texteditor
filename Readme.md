@@ -45,7 +45,7 @@
 
 ## Later 
 
-- [ ] 
+- [ ] find a way to make the window tops and bottoms automatically created from max width 
 
 # Brainstorms 
 
