@@ -53,13 +53,13 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-   
+/*                       OPEN FILE
+----------------------------------------------------------------*/
     string fileName(argv[1]); // save filename to a string var, run it through the file function
     vector<string> buffer; //main buffer of program 
     int openFileStatus = openFile(fileName, buffer);//returns 0 for good and 1, 2, 3 for each type of failure
-
-    // gets file status from open file func if all good continues to the loop
-    if (openFileStatus == 1)
+    
+    if (openFileStatus == 1)// gets file status from open file func if all good continues to the loop
     {
         cout << "Failed to open file: " << fileName << '\n';
         return 2;
@@ -74,4 +74,9 @@ int main(int argc, char *argv[])
         cout << "File " << fileName << " has at least one too long line." << '\n';
         return 2;
     }
+
+/*                   MAIN LOOP
+--------------------------------------------------------------*/
+
+
 }
