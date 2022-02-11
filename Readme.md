@@ -15,6 +15,8 @@
 
 - big question of the day, how to do undo and redo ? 
 
+- does trailing whitespace matter ????
+
 # Notes
 
 ## [2/10](#210)
@@ -100,14 +102,23 @@
   - need a display buffer function
     - (use the coulmn and row to update things every time enter is pressed) 
     - For the actual display you could maybe do like a cout where you do strings like `if(currentrow == row(i)) "*" + i + 
+    - you can use the size of main vector to see where the delimiter | should be 
+
+
   - need a open file and validate function 
-    - opens file, reads lines into data structre, validates data, closes file 
+    - opens file, reads lines into data structre, validates data, closes file
+    -  
   - need a main function with args and validation and a loop
+  - 
   - need an input function that can check if there is a previous command, and also do some validation on input data
-    - calls other commands based on input and calls display buffer after command is called  
+    - calls other commands based on input and calls display buffer after command is called
+    -   
   - save file function (checks if file exists and overwrites it or creates new one)
+  - 
   - quit function (with some understanding of save file and stack size for keeping track of changes)
+  - 
   - undo redo funcs (with ability to interact with buffer and both stacks)
+  - 
   - move functions
     - can update row and coulmns and look at input to check if number is there so they know by how much to do something
     - 
