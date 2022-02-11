@@ -40,7 +40,7 @@ int openFile(string fileName, vector<string> &buffer) // later add pass by ref f
     }
 }
 
-void display(const int &row, const int &col, const int &topLine)
+void display(const int &row, const int &col, const int &topLine, const vector<string> &buffer)
 {
     //print out cursor postion using col 
     //print out numbers with set w 
@@ -72,6 +72,9 @@ void display(const int &row, const int &col, const int &topLine)
         }else{
             rowCursor = " ";
         }
+
+
+        cout << left << rowCursor << right << "  " << (topLine + i) << left << "|" << buffer.at(topLine + i) << '\n';
     }
 
 
@@ -127,7 +130,7 @@ stack<vector<string>> undo;
 stack<vector<string>> redo;
 while(exitStatus == false)
 {
-    display(row, col, topLine); //buffer -> void func
+    display(row, col, topLine, buffer); //buffer -> void func
     //input(exitStatus, prevCommand, row, col, topLine, undo, redo)-> void func
     exitStatus = true;
 }
