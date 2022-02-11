@@ -77,6 +77,16 @@ int main(int argc, char *argv[])
 
 /*                   MAIN LOOP
 --------------------------------------------------------------*/
+bool exitStatus = false;
+while(exitStatus == false)
+{
+    //display buffer -> void func
+    //input -> void func
+
+}
 
 
+
+cout << "Goodbye!" << '\n';
+return 0;
 }
