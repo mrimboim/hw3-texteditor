@@ -10,7 +10,7 @@ using namespace std;
 
 #define MAX_WIDTH 20         // Maximum size of a line
 #define MAX_LINES 30         // Maximum number of lines
-#define MAX_SCREEN_HEIGHT 10 // number of lines displayed
+#define MAX_SCREEN_HEIGHT 5// number of lines displayed
 
 int openFile(string fileName, vector<string> &buffer) // later add pass by ref for data struct
 {
@@ -54,7 +54,7 @@ void display(const int &row, const int &col, const int &topLine, const vector<st
     string colCursor(MAX_WIDTH, ' ');
     colCursor.at(col) = '*';
     // 5 spaces between left side and start of numbers
-    cout << "     " << colCursor << '\n'; // CHARCTER CURSOR
+    cout << right << setw(MAX_WIDTH + 5) << colCursor << '\n'; // CHARCTER CURSOR
 
     string windowBorder;
     int j;
@@ -69,7 +69,7 @@ void display(const int &row, const int &col, const int &topLine, const vector<st
         windowBorder.append(to_string(numStringThing));
     }
 
-    cout << "     " << windowBorder << '\n'; // TOP WINDOW BORDER
+    cout << right << setw(MAX_WIDTH + 5) << windowBorder << '\n'; // TOP WINDOW BORDER
     int i;
     for (i = 0; i < MAX_SCREEN_HEIGHT; i++)
     {
@@ -85,15 +85,15 @@ void display(const int &row, const int &col, const int &topLine, const vector<st
 
         if ((size_t)(topLine + i) > buffer.size())
         {
-            cout << rowCursor << right << setw(2) << (topLine + i) << " " << '\n';
+            cout << rowCursor << right << setw(3) << (topLine + i) << " " << '\n';
         }
         else
         {
-            cout << rowCursor << right << setw(2) << (topLine + i) << "|" << buffer.at((topLine - 1) + i ) << '\n';
+            cout << rowCursor << right << setw(3) << (topLine + i) << "|" << buffer.at((topLine - 1) + i ) << '\n';
         }
     }
 
-    cout << "     " << windowBorder << '\n'; // BOTTOM WINDOW BORDER
+    cout << right << setw(MAX_WIDTH + 5) << windowBorder << '\n'; // BOTTOM WINDOW BORDER
 }
 
 int main(int argc, char *argv[])
