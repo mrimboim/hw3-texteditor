@@ -11,7 +11,7 @@ using namespace std;
 #define MAX_WIDTH 20 // Maximum size of a line
 #define MAX_LINES 30 // Maximum number of lines
 
-int openFile(string fileName) // later add pasby ref for data struct
+int openFile(string fileName, vector<string> &buffer) // later add pass by ref for data struct
 {
     string line;
     ifstream file(fileName);
@@ -21,8 +21,12 @@ int openFile(string fileName) // later add pasby ref for data struct
         while (getline(file, line))
         {
             std::cout << line << "   size of line: " << line.size() << std::endl;
+            if(line.size() > MAX_WIDTH){file.close(); return 3;}//too many chars in line
+            
+
         }
 
+        //check if size of vector is greater then max num lines return 2
         file.close();
         return 0;
     }
@@ -46,13 +50,10 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // save filename to a string var, run it through the file function
-    string fileName(argv[1]);
-
-    // some kind of data structre to be used for the main buffer varaible
-
-    // int openFileStatus = openFile(fileName, &data structre) <- might need to use pass by refrence
-    int openFileStatus = openFile(fileName);
+   
+    string fileName(argv[1]); // save filename to a string var, run it through the file function
+    vector<string> buffer; //main buffer of program 
+    int openFileStatus = openFile(fileName, buffer);//returns 0 for good and 1, 2, 3 for each type of failure
 
     // gets file status from open file func if all good continues to the loop
     if (openFileStatus == 1)
