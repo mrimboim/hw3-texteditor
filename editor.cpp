@@ -21,14 +21,14 @@ int openFile(string fileName, vector<string> &buffer) // later add pass by ref f
     {
         while (getline(file, line))
         {
-            cout << line << "   size of line: " << line.size() << '\n';
+           // cout << line << "   size of line: " << line.size() << '\n';
             if(line.size() > MAX_WIDTH){file.close(); return 3;}//too many chars in line
             buffer.push_back(line);
 
         }
 
         //check if size of vector is greater then max num lines return 2
-        cout << "size of buffer: " << buffer.size() << '\n';
+        //cout << "size of buffer: " << buffer.size() << '\n';
         if(buffer.size() > MAX_LINES){file.close(); return 2;}
         //if everything returned normally
         file.close();
@@ -45,6 +45,25 @@ void display(const int &row, const int &col, const int &topLine)
     //print out cursor postion using col 
     //print out numbers with set w 
     string colCursor(MAX_WIDTH, ' ');
+    colCursor.at(col) = '*';
+    //5 spaces between left side and start of numbers
+    cout << "     " << colCursor << '\n';//CHARCTER CURSOR
+
+    string windowBorder;
+    int j;
+    int numStringThing = 0;
+    for(j = 0; j < MAX_WIDTH; j++ )
+    {
+        numStringThing++;
+        if(numStringThing >= 10){numStringThing = 0;}
+        windowBorder.append(to_string(numStringThing));
+
+
+    }
+
+    cout << "     " << windowBorder << '\n';// TOP WINDOW BORDER
+
+    cout << "     " << windowBorder << '\n';// 
 
 }
 
@@ -89,17 +108,16 @@ int main(int argc, char *argv[])
 --------------------------------------------------------------*/
 bool exitStatus = false;
 int row = 0; //what row postion is curoser on from 0-max_screen_height
-int col = 1;//not sure if should start from oone or zero
+int col = 0;//not sure if should start from oone or zero
 int topLine = 1;//what line is at top of screen 
 string prevCommand;
 stack<vector<string>> undo;
 stack<vector<string>> redo;
-
 while(exitStatus == false)
 {
     display(row, col, topLine); //buffer -> void func
     //input(exitStatus, prevCommand, row, col, topLine, undo, redo)-> void func
-
+    exitStatus = true;
 }
 
 
