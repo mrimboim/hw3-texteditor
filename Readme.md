@@ -73,3 +73,31 @@
 
 - **saving the file before closing/closing the file** 
   - get stack size at save, if save is tried again see if the stack size is diffrent prompt to save before quitting 
+
+
+
+- WHICH libraries do i need
+  - string 
+
+- FUNCTIONS
+  - need a display buffer function
+    - (use the coulmn and row to update things every time enter is pressed) 
+    - For the actual display you could maybe do like a cout where you do strings like `if(currentrow == row(i)) "*" + i + 
+  - need a open file and validate function 
+  - need a main function with args and validation and a loop
+  - need an input function that can check if there is a previous command, and also do some validation on input data
+    - calls other commands based on input and calls display buffer after command is called  
+  - save file function (checks if file exists and overwrites it or creates new one)
+  - quit function (with some understanding of save file and stack size for keeping track of changes)
+  - undo redo funcs (with ability to interact with buffer and both stacks)
+  - move functions
+    - can update row and coulmns and look at input to check if number is there so they know by how much to do something
+    - 
+  - insert function (looks at coulmns and row and then starts changing things in the vector until it needs to move to another vector each vector it uses it pushes it to a data structre that holds x number of vectors before a change) - need to see how getline works to see if i need a data structre to properly have | charcter pop up 
+  - 
+
+-variables 
+  - vector of string vectors function (need to see how getline works first huh) 
+  - undo and redo stack and previous undo stack size var (if no time you can just push the etire vec of vecs instead of specififc vecs)
+  - row and coulmn vars
+  - previous command var 
