@@ -8,9 +8,16 @@
 
 using namespace std;
 
-#define MAX_WIDTH 20         // Maximum size of a line
-#define MAX_LINES 30         // Maximum number of lines
-#define MAX_SCREEN_HEIGHT 5// number of lines displayed
+#define MAX_WIDTH 20        // Maximum size of a line
+#define MAX_LINES 30        // Maximum number of lines
+#define MAX_SCREEN_HEIGHT 5 // number of lines displayed
+
+
+struct moveInstruction
+{
+    string direction;
+    int numMovments;
+};
 
 int openFile(string fileName, vector<string> &buffer) // later add pass by ref for data struct
 {
@@ -89,7 +96,7 @@ void display(const int &row, const int &col, const int &topLine, const vector<st
         }
         else
         {
-            cout << rowCursor << right << setw(3) << (topLine + i) << "|" << buffer.at((topLine - 1) + i ) << '\n';
+            cout << rowCursor << right << setw(3) << (topLine + i) << "|" << buffer.at((topLine - 1) + i) << '\n';
         }
     }
 
@@ -97,31 +104,36 @@ void display(const int &row, const int &col, const int &topLine, const vector<st
 }
 
 void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLine, stack<vector<string>> &undo, stack<vector<string>> &redo)
-{   
+{
     string currentCommand;
-    //if statment if prev command is empty and current command is empty out that there is no prevoius command, otherwise
-    // if prev is full and and current is empty do prev if current not empty do current(this being the firsst thing in the if cascade)
+    // if statment if prev command is empty and current command is empty out that there is no prevoius command, otherwise
+    //  if prev is full and and current is empty do prev if current not empty do current(this being the firsst thing in the if cascade)
     cout << "Enter command: " << '\n';
-    cin >> currentCommand; 
+    cin >> currentCommand;
 
-    if(!currentCommand.empty())
+    if (!currentCommand.empty())
     {
-        //possible input bvalidation 
-        //splitting the string 
-        prevCommand = current_exception;
+        // possible input bvalidation
+        // splitting the string
 
-    }else if(currentCommand.empty() && !prevCommand.empty())
+        prevCommand = currentCommand;
+    }
+    else if (currentCommand.empty() && !prevCommand.empty())
     {
+        currentCommand = prevCommand; 
+    }
+    else
+    {
+        cout << "No previous command." << '\n';
+        return;
 
-    }else
-    {
-        cout 
     }
 
+     //breaking up the string
 
-    
 
-
+    //if first part is q set thing to true, if first part is w a s d move w a s d, and if theres a number after
+    // if s then call save and move filename to func and save, if i then call insert and move string section. For undo redo pass a number after(for all of these you may need to pass more vars)
 }
 
 int main(int argc, char *argv[])
@@ -173,7 +185,7 @@ int main(int argc, char *argv[])
     {
         display(row, col, topLine, buffer); // buffer -> void func
         // input(exitStatus, prevCommand, row, col, topLine, undo, redo)-> void func
-        exitStatus = true; // erase after input is able to take in exits 
+        exitStatus = true; // erase after input is able to take in exits
     }
 
     cout << "Goodbye!" << '\n';
