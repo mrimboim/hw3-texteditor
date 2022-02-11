@@ -62,8 +62,20 @@ void display(const int &row, const int &col, const int &topLine)
     }
 
     cout << "     " << windowBorder << '\n';// TOP WINDOW BORDER
+    int i;
+    for(i = 0; i < MAX_SCREEN_HEIGHT; i++)
+    {
+        string rowCursor;
+        if(i == row)
+        {
+            rowCursor = "*";
+        }else{
+            rowCursor = " ";
+        }
+    }
 
-    cout << "     " << windowBorder << '\n';// 
+
+    cout << "     " << windowBorder << '\n';//BOTTOM WINDOW BORDER
 
 }
 
