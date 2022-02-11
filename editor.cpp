@@ -96,6 +96,34 @@ void display(const int &row, const int &col, const int &topLine, const vector<st
     cout << right << setw(MAX_WIDTH + 5) << windowBorder << '\n'; // BOTTOM WINDOW BORDER
 }
 
+void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLine, stack<vector<string>> &undo, stack<vector<string>> &redo)
+{   
+    string currentCommand;
+    //if statment if prev command is empty and current command is empty out that there is no prevoius command, otherwise
+    // if prev is full and and current is empty do prev if current not empty do current(this being the firsst thing in the if cascade)
+    cout << "Enter command: " << '\n';
+    cin >> currentCommand; 
+
+    if(!currentCommand.empty())
+    {
+        //possible input bvalidation 
+        //splitting the string 
+        prevCommand = current_exception;
+
+    }else if(currentCommand.empty() && !prevCommand.empty())
+    {
+
+    }else
+    {
+        cout 
+    }
+
+
+    
+
+
+}
+
 int main(int argc, char *argv[])
 {
     // intial command line validation

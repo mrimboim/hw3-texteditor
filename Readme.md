@@ -3,6 +3,7 @@
   - [2/10](#210)
 - [Notes](#notes)
   - [2/10](#210-1)
+  - [2/11](#211)
 - [To-do](#to-do)
   - [Now](#now)
   - [Soon](#soon)
@@ -31,6 +32,15 @@
   - 2 too manny lines
   - 3 too many charcters for a line
     - 1 2 3 print msg in main and terminate 
+
+
+## [2/11](#211)
+- heap and stack grow towards each other 
+1 grows to 2000  stack 4000 and grows 2000 for stack and heap for allocated mem
+-stack can hold pointer to a space in stack that store dynamic mem alloc from malloc ->which is in heap
+-stack stores the locally scoped var
+-global vars are stored in data section 
+  
 
 
 # To-do
@@ -133,3 +143,41 @@
   - row and coulmn vars
   - topLine so that you can use it to move the display based on top line and row, also useful so you can set topline to size of vector and then after print empty things
   - previous command var you can use string.empty for prev command thing
+
+
+1 [1 2 3]
+2 [4 5 6]
+3 [7 8 9]
+
+1 2 3 4 5 6 7 8 9
+0 1 2 3 4 5 6 7 8 
+
+$rdi -> input 1 index 0 -> find a way to increment to find correct index based on rows and colms
+
+1 4 7 2 5 8 3 6 9
+
+$rcx -> index 0 -> first element of output matrix -> increment by 1 each time
+
+output row ++
+
+3 row 
+2 col
+
+0 0 
+
+1 [1 3 5]
+2 [2 4 6]
+
+1 3 5 2 4 6
+
+
+stack 
+bla blabla
+call scanf
+mov (%rsp), whatever 
+
+
+i r 
+backtrace 
+continue 
+n 
