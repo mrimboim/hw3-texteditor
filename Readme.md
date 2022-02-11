@@ -103,6 +103,7 @@
     - (use the coulmn and row to update things every time enter is pressed) 
     - For the actual display you could maybe do like a cout where you do strings like `if(currentrow == row(i)) "*" + i + 
     - you can use the size of main vector to see where the delimiter | should be 
+    - use setw and look at ecs50 project for refrence 
 
 
   - need a open file and validate function 

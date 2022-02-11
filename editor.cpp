@@ -20,13 +20,15 @@ int openFile(string fileName, vector<string> &buffer) // later add pass by ref f
     {
         while (getline(file, line))
         {
-            std::cout << line << "   size of line: " << line.size() << std::endl;
+            cout << line << "   size of line: " << line.size() << '\n';
             if(line.size() > MAX_WIDTH){file.close(); return 3;}//too many chars in line
-            
+            buffer.push_back(line);
 
         }
 
         //check if size of vector is greater then max num lines return 2
+        cout << "size of buffer: " << buffer.size() << '\n';
+        //if everything returned normally
         file.close();
         return 0;
     }
