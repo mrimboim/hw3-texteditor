@@ -21,6 +21,8 @@
 
 -  Use smart pointers instead of regular pointers -> test with valgrind at the end
 
+- g++	-g -Wall -Werror -std=c++14 editor.cpp -o editor
+
 
 # To-do
 
