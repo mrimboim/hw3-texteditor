@@ -23,6 +23,13 @@
 
 - g++	-g -Wall -Werror -std=c++14 editor.cpp -o editor
 
+- for openFile 
+  - 0 is good 
+  - 1 couldnt open file
+  - 2 too manny lines
+  - 3 too many charcters for a line
+    - 1 2 3 print msg in main and terminate 
+
 
 # To-do
 
