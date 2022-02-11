@@ -8,9 +8,9 @@
 
 using namespace std;
 
-#define MAX_WIDTH 20 // Maximum size of a line
-#define MAX_LINES 30 // Maximum number of lines
-#define MAX_SCREEN_HEIGHT 10 //number of lines displayed
+#define MAX_WIDTH 20         // Maximum size of a line
+#define MAX_LINES 30         // Maximum number of lines
+#define MAX_SCREEN_HEIGHT 10 // number of lines displayed
 
 int openFile(string fileName, vector<string> &buffer) // later add pass by ref for data struct
 {
@@ -21,16 +21,23 @@ int openFile(string fileName, vector<string> &buffer) // later add pass by ref f
     {
         while (getline(file, line))
         {
-           // cout << line << "   size of line: " << line.size() << '\n';
-            if(line.size() > MAX_WIDTH){file.close(); return 3;}//too many chars in line
+            // cout << line << "   size of line: " << line.size() << '\n';
+            if (line.size() > MAX_WIDTH)
+            {
+                file.close();
+                return 3;
+            } // too many chars in line
             buffer.push_back(line);
-
         }
 
-        //check if size of vector is greater then max num lines return 2
-        //cout << "size of buffer: " << buffer.size() << '\n';
-        if(buffer.size() > MAX_LINES){file.close(); return 2;}
-        //if everything returned normally
+        // check if size of vector is greater then max num lines return 2
+        // cout << "size of buffer: " << buffer.size() << '\n';
+        if (buffer.size() > MAX_LINES)
+        {
+            file.close();
+            return 2;
+        }
+        // if everything returned normally
         file.close();
         return 0;
     }
@@ -42,46 +49,52 @@ int openFile(string fileName, vector<string> &buffer) // later add pass by ref f
 
 void display(const int &row, const int &col, const int &topLine, const vector<string> &buffer)
 {
-    //print out cursor postion using col 
-    //print out numbers with set w 
+    // print out cursor postion using col
+    // print out numbers with set w
     string colCursor(MAX_WIDTH, ' ');
     colCursor.at(col) = '*';
-    //5 spaces between left side and start of numbers
-    cout << "     " << colCursor << '\n';//CHARCTER CURSOR
+    // 5 spaces between left side and start of numbers
+    cout << "     " << colCursor << '\n'; // CHARCTER CURSOR
 
     string windowBorder;
     int j;
     int numStringThing = 0;
-    for(j = 0; j < MAX_WIDTH; j++ )
+    for (j = 0; j < MAX_WIDTH; j++)
     {
         numStringThing++;
-        if(numStringThing >= 10){numStringThing = 0;}
+        if (numStringThing >= 10)
+        {
+            numStringThing = 0;
+        }
         windowBorder.append(to_string(numStringThing));
-
-
     }
 
-    cout << "     " << windowBorder << '\n';// TOP WINDOW BORDER
+    cout << "     " << windowBorder << '\n'; // TOP WINDOW BORDER
     int i;
-    for(i = 0; i < MAX_SCREEN_HEIGHT; i++)
+    for (i = 0; i < MAX_SCREEN_HEIGHT; i++)
     {
         string rowCursor;
-        if(i == row)
+        if (i == row) // make sure row never goes below last line as in i + topLine is not greater then buffer.size
         {
             rowCursor = "*";
-        }else{
+        }
+        else
+        {
             rowCursor = " ";
         }
 
-
-        cout << left << rowCursor << right << "  " << (topLine + i) << left << "|" << buffer.at(topLine + i) << '\n';
+        if ((size_t)(topLine + i) >= buffer.size())
+        {
+            cout << left << rowCursor << right << "  " << (topLine + i) << left << " " << '\n';
+        }
+        else
+        {
+            cout << left << rowCursor << right << "  " << (topLine + i) << left << "|" << buffer.at(topLine + i) << '\n';
+        }
     }
 
-
-    cout << "     " << windowBorder << '\n';//BOTTOM WINDOW BORDER
-
+    cout << "     " << windowBorder << '\n'; // BOTTOM WINDOW BORDER
 }
-
 
 int main(int argc, char *argv[])
 {
@@ -97,13 +110,13 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-/*                       OPEN FILE
-----------------------------------------------------------------*/
-    string fileName(argv[1]); // save filename to a string var, run it through the file function
-    vector<string> buffer; //main buffer of program 
-    int openFileStatus = openFile(fileName, buffer);//returns 0 for good and 1, 2, 3 for each type of failure
-    
-    if (openFileStatus == 1)// gets file status from open file func if all good continues to the loop
+    /*                       OPEN FILE
+    ----------------------------------------------------------------*/
+    string fileName(argv[1]);                        // save filename to a string var, run it through the file function
+    vector<string> buffer;                           // main buffer of program
+    int openFileStatus = openFile(fileName, buffer); // returns 0 for good and 1, 2, 3 for each type of failure
+
+    if (openFileStatus == 1) // gets file status from open file func if all good continues to the loop
     {
         cout << "Failed to open file: " << fileName << '\n';
         return 2;
@@ -119,24 +132,22 @@ int main(int argc, char *argv[])
         return 2;
     }
 
-/*                   MAIN LOOP
---------------------------------------------------------------*/
-bool exitStatus = false;
-int row = 0; //what row postion is curoser on from 0-max_screen_height
-int col = 0;//not sure if should start from oone or zero
-int topLine = 1;//what line is at top of screen 
-string prevCommand;
-stack<vector<string>> undo;
-stack<vector<string>> redo;
-while(exitStatus == false)
-{
-    display(row, col, topLine, buffer); //buffer -> void func
-    //input(exitStatus, prevCommand, row, col, topLine, undo, redo)-> void func
-    exitStatus = true;
-}
+    /*                   MAIN LOOP
+    --------------------------------------------------------------*/
+    bool exitStatus = false;
+    int row = 0;     // what row postion is curoser on from 0-max_screen_height
+    int col = 0;     // not sure if should start from oone or zero
+    int topLine = 1; // what line is at top of screen
+    string prevCommand;
+    stack<vector<string>> undo;
+    stack<vector<string>> redo;
+    while (exitStatus == false)
+    {
+        display(row, col, topLine, buffer); // buffer -> void func
+        // input(exitStatus, prevCommand, row, col, topLine, undo, redo)-> void func
+        exitStatus = true;
+    }
 
-
-
-cout << "Goodbye!" << '\n';
-return 0;
+    cout << "Goodbye!" << '\n';
+    return 0;
 }
