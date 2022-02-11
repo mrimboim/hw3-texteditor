@@ -85,11 +85,11 @@ void display(const int &row, const int &col, const int &topLine, const vector<st
 
         if ((size_t)(topLine + i) > buffer.size())
         {
-            cout << rowCursor << "  " << (topLine + i) << left << " " << '\n';
+            cout << rowCursor << right << setw(2) << (topLine + i) << " " << '\n';
         }
         else
         {
-            cout << rowCursor  << "  " << (topLine + i) << "|" << buffer.at((topLine - 1) + i ) << '\n';
+            cout << rowCursor << right << setw(2) << (topLine + i) << "|" << buffer.at((topLine - 1) + i ) << '\n';
         }
     }
 
