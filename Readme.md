@@ -41,7 +41,7 @@
 
 ## Soon 
 
-- [ ] 
+- [ ]  test display function 
 
 ## Later 
 
@@ -116,12 +116,13 @@
     -   
   - save file function (checks if file exists and overwrites it or creates new one)
   - 
-  - quit function (with some understanding of save file and stack size for keeping track of changes)
+  - quit function (with some understanding of save file and **stack size** for keeping track of changes)
   - 
   - undo redo funcs (with ability to interact with buffer and both stacks)
   - 
   - move functions
     - can update row and coulmns and look at input to check if number is there so they know by how much to do something
+    - **idea** *to move down add to row, if row already at nine add to topLine until it equals buffer.size, then for every addtional move down add one to topLine and subtract one from row until buffer.size == topLine in which case youve reached the end of possible down movment*
     - 
   - insert function (looks at coulmns and row and then starts changing things in the vector until it needs to move to another vector each vector it uses it pushes it to a data structre that holds x number of vectors before a change) - need to see how getline works to see if i need a data structre to properly have | charcter pop up 
   - 

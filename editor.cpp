@@ -145,7 +145,7 @@ int main(int argc, char *argv[])
     {
         display(row, col, topLine, buffer); // buffer -> void func
         // input(exitStatus, prevCommand, row, col, topLine, undo, redo)-> void func
-        exitStatus = true;
+        exitStatus = true; // erase after input is able to take in exits 
     }
 
     cout << "Goodbye!" << '\n';
