@@ -21,7 +21,13 @@ int main(int argc, char *argv[])
         cout << "Too many command-line arguments." << '\n';
     }
 
-    
+    // save filename to a string var, run it through the file function
+    string fileName(argv[1]);
+    //some kind of data structre to be used for the main buffer varaible
+    //int openFileStatus = openFile(fileName, &data structre) <- might need to use pass by refrence
+
+
+
 
 
 }

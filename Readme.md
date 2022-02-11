@@ -94,6 +94,7 @@
     - (use the coulmn and row to update things every time enter is pressed) 
     - For the actual display you could maybe do like a cout where you do strings like `if(currentrow == row(i)) "*" + i + 
   - need a open file and validate function 
+    - opens file, reads lines into data structre, validates data, closes file 
   - need a main function with args and validation and a loop
   - need an input function that can check if there is a previous command, and also do some validation on input data
     - calls other commands based on input and calls display buffer after command is called  
