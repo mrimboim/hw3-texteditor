@@ -78,10 +78,15 @@ int main(int argc, char *argv[])
 /*                   MAIN LOOP
 --------------------------------------------------------------*/
 bool exitStatus = false;
+int row = 1;
+int col = 1;
+stack<vector<string>> undo;
+stack<vector<string>> redo;
+
 while(exitStatus == false)
 {
-    //display buffer -> void func
-    //input -> void func
+    //display(const row, const col) buffer -> void func
+    //input(exitStatus, row, col, undo, redo)-> void func
 
 }
 
