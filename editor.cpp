@@ -22,11 +22,23 @@ void insert(int &row, int &col, int &topLine, stack<vector<string>> &undo, stack
 {
     undo.push(buffer);
     cout << "WHAT IS out before: " << buffer[row + topLine - 1] << '\n';
-    buffer[row + topLine - 1].insert(7,"asd");
+    if (col > (int)buffer[row + topLine - 1].size() - 1)
+    {
+        string tempString = buffer[row + topLine - 1];
+        int wheretoinsert = ((int)buffer[row + topLine - 1].size() - 1);
+        cout << "where:" << wheretoinsert << '\n';
+        int howmanytoinsert = (col - wheretoinsert);
+        cout << "howmany:" << howmanytoinsert << '\n';
+
+        buffer[row + topLine - 1].insert(wheretoinsert, howmanytoinsert, 'X');
+    }
+
+    // buffer[row + topLine - 1].replace(1,7,"asd");
     cout << "WHAT IS out after: " << buffer[row + topLine - 1] << '\n';
 }
 void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<string> &buffer)
 {
+
     if (mover.direction == "w")
     {
         if (row == 0 && topLine == 1)
@@ -408,7 +420,14 @@ int main(int argc, char *argv[])
     while (exitStatus == false)
     {
         display(row, col, topLine, buffer); // buffer -> void func
-        input(exitStatus, prevCommand, row, col, topLine, undo, redo, buffer);
+        try
+        {
+            input(exitStatus, prevCommand, row, col, topLine, undo, redo, buffer);
+        }
+        catch (const std::exception &ex)
+        {
+            cout << "SoMeThInG wEnT WoNg" << '\n';
+        }
     }
 
     cout << "Goodbye!" << '\n';
