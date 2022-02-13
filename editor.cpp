@@ -18,6 +18,11 @@ struct moveInstruction
     int numMovments;
 };
 
+void insert(int &row, int &col, int &topLine, stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer, string toInsert)
+{
+     undo.push(buffer);
+
+}
 void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<string> &buffer)
 {
     if (mover.direction == "w")
@@ -286,7 +291,7 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
         else if (first == 'i' && currentCommand.size() > 2 && currentCommand.at(1) == ' ')
         {
             string toInsert = currentCommand.substr(currentCommand.find(" ") + 1);
-            // insert(toInsert);
+            insert(row, col, topLine, undo, redo, buffer, toInsert);
             return;
         }
         else if (first == 'w' && currentCommand.size() > 2)
