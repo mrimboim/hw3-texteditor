@@ -20,8 +20,10 @@ struct moveInstruction
 
 void insert(int &row, int &col, int &topLine, stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer, string toInsert)
 {
-     undo.push(buffer);
-
+    undo.push(buffer);
+    cout << "WHAT IS out before: " << buffer[row + topLine - 1] << '\n';
+    buffer[row + topLine - 1].insert(7,"asd");
+    cout << "WHAT IS out after: " << buffer[row + topLine - 1] << '\n';
 }
 void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<string> &buffer)
 {
