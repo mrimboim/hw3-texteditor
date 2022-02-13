@@ -18,6 +18,43 @@ struct moveInstruction
     int numMovments;
 };
 
+void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<string> &buffer)
+{
+    if (mover.direction == "w")
+    {
+    }
+    else if (mover.direction == "s")
+    {
+
+        if (row == 0 && topLine == (int)buffer.size())
+        {
+            return;
+        }
+        else if ((row + topLine) == (int)buffer.size())
+        {
+            row--;
+            topLine++;
+            return;
+        }
+        else if (row == 9)
+        {
+            topLine++;
+            return;
+        }
+        else
+        {
+            row++;
+            return;
+        }
+    }
+    else if (mover.direction == "a")
+    {
+    }
+    else if (mover.direction == "d")
+    {
+    }
+}
+
 void savefile(const string &saveFilename, const vector<string> &buffer)
 {
     fstream savingFile;
@@ -166,25 +203,25 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
                 case 's':
                     mover.direction = "s";
                     mover.numMovments = 0;
-                    // movment func
+                    move(row, col, topLine, mover, buffer);
                     return;
                     break;
                 case 'w':
                     mover.direction = "w";
                     mover.numMovments = 0;
-                    // movment func
+                    move(row, col, topLine, mover, buffer);
                     return;
                     break;
                 case 'a':
                     mover.direction = "a";
                     mover.numMovments = 0;
-                    // movment func
+                    move(row, col, topLine, mover, buffer);
                     return;
                     break;
                 case 'd':
                     mover.direction = "d";
                     mover.numMovments = 0;
-                    // movment func
+                    move(row, col, topLine, mover, buffer);
                     return;
                     break;
                 case 'r':
@@ -211,7 +248,7 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
         }
         else if (first == 'i' && currentCommand.size() > 2 && currentCommand.at(1) == ' ')
         {
-            string toInsert = currentCommand.substr(currentCommand.find(" "));
+            string toInsert = currentCommand.substr(currentCommand.find(" ") + 1);
             // insert(toInsert);
             return;
         }
@@ -221,7 +258,11 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
             moveInstruction mover;
             mover.numMovments = stoi(numMovments);
             mover.direction = "w";
-            // call move
+            int i;
+            for (i = 0; i < mover.numMovments; i++)
+            {
+                move(row, col, topLine, mover, buffer);
+            }
             return;
         }
         else if (first == 'a' && currentCommand.size() > 2)
@@ -230,7 +271,11 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
             moveInstruction mover;
             mover.numMovments = stoi(numMovments);
             mover.direction = "a";
-            // call move
+            int i;
+            for (i = 0; i < mover.numMovments; i++)
+            {
+                move(row, col, topLine, mover, buffer);
+            }
             return;
         }
         else if (first == 's' && currentCommand.size() > 2)
@@ -239,7 +284,11 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
             moveInstruction mover;
             mover.numMovments = stoi(numMovments);
             mover.direction = "s";
-            // call move
+            int i;
+            for (i = 0; i < mover.numMovments; i++)
+            {
+                move(row, col, topLine, mover, buffer);
+            }
             return;
         }
         else if (first == 'd' && currentCommand.size() > 2)
@@ -248,7 +297,11 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
             moveInstruction mover;
             mover.numMovments = stoi(numMovments);
             mover.direction = "d";
-            // call move
+            int i;
+            for (i = 0; i < mover.numMovments; i++)
+            {
+                move(row, col, topLine, mover, buffer);
+            }
             return;
         }
     }
@@ -312,7 +365,6 @@ int main(int argc, char *argv[])
     {
         display(row, col, topLine, buffer); // buffer -> void func
         input(exitStatus, prevCommand, row, col, topLine, undo, redo, buffer);
-        // erase after input is able to take in exits
     }
 
     cout << "Goodbye!" << '\n';
