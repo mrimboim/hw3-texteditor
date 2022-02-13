@@ -54,7 +54,7 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
     cout << "next string next line:" << nextSub << '\n';
     while ((int)nextSub.size() > 0)
     {
-        if ((row + topLine > (int)buffer.size() - 1) && (row + topLine < MAX_LINES )) // might be one off
+        if ((row + topLine > (int)buffer.size() - 1) && (row + topLine < MAX_LINES)) // might be one off
         {
             spaceLeft = (MAX_WIDTH - 1) - col;
 
@@ -68,13 +68,25 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
             }
             buffer.push_back(nextSub.substr(0, postionInsertString));
             nextSub = nextSub.substr((postionInsertString));
-             cout << "next string next line:" << nextSub << '\n';
+            cout << "next string next line:" << nextSub << '\n';
             topLine++;
         }
         else
         {
             nextSub = "";
             cout << "this one ran" << '\n';
+            spaceLeft = (MAX_WIDTH - 1) - col;
+            if (spaceLeft >= (int)nextSub.size())
+            {
+                postionInsertString = (int)nextSub.size();
+            }
+            else
+            {
+                postionInsertString = spaceLeft + 1;
+            }
+            buffer[row + topLine - 1].replace(col, (postionInsertString), nextSub.substr(0, postionInsertString));
+            string nextSub = toInsert.substr(startingPoint);
+            topLine++;
         }
     }
 }
