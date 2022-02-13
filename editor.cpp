@@ -131,13 +131,38 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
      //breaking up the string
     cout << "size of string : " << currentCommand.size() << '\n';
     char first = currentCommand.at(0);
-    if(first == 'q' || first == 's' || first == 'w' || first == 'a' || first == 'd' ||  first == 'i' || first == 'r' || first == 'u' ||)
+    if(first == 'q' || first == 's' || first == 'w' || first == 'a' || first == 'd' ||  first == 'i' || first == 'r' || first == 'u')
     {
+        if(currentCommand.size() == 1)//if it is an input that needs to extra params then pass otherwise error
+        {
+            if(first == 'i')
+            {
+                cout << "Insert needs something to insert" << '\n';
+                return;
+            }else{
+                //pass all the move instructions with 0 as amount 
+                //pass quit if needed 
+                //pass redo
+                //pass undo 
+
+            }
+            
+        }else if(currentCommand.size() == 4 && (currentCommand.find("save") != string::npos))//if size for and not 
+        {
+            cout << "Save command must have a path" << '\n';
+            return; 
+        }else if((currentCommand.find("save") != string::npos) && (currentCommand.at(4) == ' ') && currentCommand.size() > 5 )
+        {
+             string saveFilename = currentCommand.substr(currentCommand.find(" "));
+             //savefile(saveFilename);
+             return;
+        }
 
     }else{
         cout << "\"" << currentCommand << "\" " << "is not a recognized command" << '\n'; 
+        return;
     }
-    string command = currentCommand.substr(0, currentCommand.find(" "))
+    string command = currentCommand.substr(0, currentCommand.find(" "));
 
 
 
