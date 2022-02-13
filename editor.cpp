@@ -54,7 +54,7 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
     cout << "next string next line:" << nextSub << '\n';
     while ((int)nextSub.size() > 0)
     {
-        if ((row + topLine > (int)buffer.size() - 1) && (row + topLine < MAX_LINES)) // might be one off
+        if ((row + topLine > (int)buffer.size() - 1) && (row + topLine < MAX_LINES)) // 
         {
             spaceLeft = (MAX_WIDTH - 1) - col;
 
@@ -73,8 +73,9 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
         }
         else
         {
+            topLine++;
             nextSub = "";
-            cout << "this one ran" << '\n';
+            cout << "this one ran" << '\n';//PROBLEM IS DOWN HERE
             spaceLeft = (MAX_WIDTH - 1) - col;
             if (spaceLeft >= (int)nextSub.size())
             {
@@ -85,8 +86,7 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
                 postionInsertString = spaceLeft + 1;
             }
             buffer[row + topLine - 1].replace(col, (postionInsertString), nextSub.substr(0, postionInsertString));
-            string nextSub = toInsert.substr(startingPoint);
-            topLine++;
+            nextSub = nextSub.substr(postionInsertString);
         }
     }
 }
@@ -474,14 +474,14 @@ int main(int argc, char *argv[])
     while (exitStatus == false)
     {
         display(row, col, topLine, buffer); // buffer -> void func
-        try
-        {
+        // try
+        // {
             input(exitStatus, prevCommand, row, col, topLine, undo, redo, buffer);
-        }
-        catch (const std::exception &ex)
-        {
-            cout << "SoMeThInG wEnT WoNg" << '\n';
-        }
+       // }
+        //catch (const std::exception &ex)
+      //  {
+            //cout << "SoMeThInG wEnT WoNg" << '\n';
+       // }
     }
 
     cout << "Goodbye!" << '\n';
