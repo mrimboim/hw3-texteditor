@@ -82,7 +82,7 @@
   - the line number is the row number 
 
   - if the size of the line is zero or 1 based on new line then we dont put a | 
-
+g++ -g -Wall -Werror -std=c++14 editor.cpp -o editor
 
 
 - **insertions** 
