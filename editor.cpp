@@ -40,12 +40,25 @@ void insert(int &row, int &col, int &topLine, stack<vector<string>> &undo, stack
     {
         postionInsertString = (int)toInsert.size();
     }else{
-        postionInsertString = spaceLeft;
+        postionInsertString = spaceLeft + 1;
     }
-    buffer[row + topLine - 1].replace(col,(col + postionInsertString), toInsert.substr(0, postionInsertString));
+    buffer[row + topLine - 1].replace(col ,(postionInsertString), toInsert.substr(0, postionInsertString));
     //int postionInsertString = 
-
+    cout << "size of substr" << toInsert.substr(0, postionInsertString) << "::" <<'\n';
     cout << "WHAT IS out after: " << buffer[row + topLine - 1] << '\n';
+    int startingPoint = postionInsertString;
+    string nextSub = toInsert.substr(startingPoint);
+    cout << "next string next line:" << nextSub <<'\n';
+     while(nextSub.size() -1 > 0)
+    {
+        if(row + topLine > buffer.size())//might be one off
+        {
+            buffer.push_back()
+        }
+
+    }
+
+
 }
 void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<string> &buffer)
 {
