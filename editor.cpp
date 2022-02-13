@@ -8,8 +8,8 @@
 
 using namespace std;
 
-#define MAX_WIDTH 20        // Maximum size of a line
-#define MAX_LINES 30        // Maximum number of lines
+#define MAX_WIDTH 20         // Maximum size of a line
+#define MAX_LINES 30         // Maximum number of lines
 #define MAX_SCREEN_HEIGHT 10 // number of lines displayed
 
 struct moveInstruction
@@ -18,7 +18,18 @@ struct moveInstruction
     int numMovments;
 };
 
-void quit(bool &exitStatus)//put freaking stack thing 
+void savefile(const string &saveFilename, const vector<string> &buffer)
+{
+    fstream savingFile;
+    savingFile.open(saveFilename, fstream::in | fstream::out | fstream::trunc);
+    int i;
+    for (i = 0; i < (int)buffer.size(); i++)
+    {
+        savingFile << buffer[i] << "\n";
+    }
+    savingFile.close();
+}
+void quit(bool &exitStatus) // put freaking stack thing
 {
     exitStatus = true;
 }
@@ -106,7 +117,7 @@ void display(const int &row, const int &col, const int &topLine, const vector<st
     cout << right << setw(MAX_WIDTH + 5) << windowBorder << '\n'; // BOTTOM WINDOW BORDER
 }
 
-void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLine, stack<vector<string>> &undo, stack<vector<string>> &redo)
+void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLine, stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer)
 {
     string currentCommand;
     // if statment if prev command is empty and current command is empty out that there is no prevoius command, otherwise
@@ -177,16 +188,14 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
                     return;
                     break;
                 case 'r':
-                    //redo func
+                    // redo func
                     return;
                     break;
                 case 'u':
-                    //undo func
+                    // undo func
                     return;
                     break;
                 }
-
-               
             }
         }
         else if (currentCommand.size() == 4 && (currentCommand.find("save") != string::npos)) // if size for and not
@@ -196,8 +205,8 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
         }
         else if ((currentCommand.find("save") != string::npos) && (currentCommand.at(4) == ' ') && currentCommand.size() > 5)
         {
-            string saveFilename = currentCommand.substr(currentCommand.find(" "));
-            // savefile(saveFilename);
+            string saveFilename = currentCommand.substr(currentCommand.find(" ") + 1);
+            savefile(saveFilename, buffer);
             return;
         }
         else if (first == 'i' && currentCommand.size() > 2 && currentCommand.at(1) == ' ')
@@ -206,40 +215,40 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
             // insert(toInsert);
             return;
         }
-        else if(first == 'w' && currentCommand.size() > 2)
+        else if (first == 'w' && currentCommand.size() > 2)
         {
             string numMovments = currentCommand.substr(2);
             moveInstruction mover;
             mover.numMovments = stoi(numMovments);
             mover.direction = "w";
-            //call move
+            // call move
             return;
         }
-        else if(first == 'a' && currentCommand.size() > 2)
+        else if (first == 'a' && currentCommand.size() > 2)
         {
             string numMovments = currentCommand.substr(2);
             moveInstruction mover;
             mover.numMovments = stoi(numMovments);
             mover.direction = "a";
-            //call move
+            // call move
             return;
         }
-        else if(first == 's' && currentCommand.size() > 2)
+        else if (first == 's' && currentCommand.size() > 2)
         {
             string numMovments = currentCommand.substr(2);
             moveInstruction mover;
             mover.numMovments = stoi(numMovments);
             mover.direction = "s";
-            //call move
+            // call move
             return;
         }
-        else if(first == 'd' && currentCommand.size() > 2)
+        else if (first == 'd' && currentCommand.size() > 2)
         {
             string numMovments = currentCommand.substr(2);
             moveInstruction mover;
             mover.numMovments = stoi(numMovments);
             mover.direction = "d";
-            //call move
+            // call move
             return;
         }
     }
@@ -249,8 +258,6 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
              << "is not a recognized command" << '\n';
         return;
     }
-    
-
 
     // if first part is q set thing to true, if first part is w a s d move w a s d, and if theres a number after
     //  if s then call save and move filename to func and save, if i then call insert and move string section. For undo redo pass a number after(for all of these you may need to pass more vars)
@@ -304,7 +311,7 @@ int main(int argc, char *argv[])
     while (exitStatus == false)
     {
         display(row, col, topLine, buffer); // buffer -> void func
-        input(exitStatus, prevCommand, row, col, topLine, undo, redo);
+        input(exitStatus, prevCommand, row, col, topLine, undo, redo, buffer);
         // erase after input is able to take in exits
     }
 
