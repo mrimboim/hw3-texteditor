@@ -12,7 +12,6 @@ using namespace std;
 #define MAX_LINES 30        // Maximum number of lines
 #define MAX_SCREEN_HEIGHT 5 // number of lines displayed
 
-
 struct moveInstruction
 {
     string direction;
@@ -119,56 +118,101 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
     }
     else if (currentCommand.empty() && !prevCommand.empty())
     {
-        currentCommand = prevCommand; 
+        currentCommand = prevCommand;
     }
     else
     {
         cout << "No previous command." << '\n';
         return;
-
     }
 
-     //breaking up the string
+    // breaking up the string
     cout << "size of string : " << currentCommand.size() << '\n';
     char first = currentCommand.at(0);
-    if(first == 'q' || first == 's' || first == 'w' || first == 'a' || first == 'd' ||  first == 'i' || first == 'r' || first == 'u')
+    if (first == 'q' || first == 's' || first == 'w' || first == 'a' || first == 'd' || first == 'i' || first == 'r' || first == 'u')
     {
-        if(currentCommand.size() == 1)//if it is an input that needs to extra params then pass otherwise error
+        if (currentCommand.size() == 1) // if it is an input that needs to extra params then pass otherwise error
         {
-            if(first == 'i')
+            if (first == 'i')
             {
                 cout << "Insert needs something to insert" << '\n';
                 return;
-            }else{
-                //pass all the move instructions with 0 as amount 
-                //pass quit if needed 
-                //pass redo
-                //pass undo 
-
             }
-            
-        }else if(currentCommand.size() == 4 && (currentCommand.find("save") != string::npos))//if size for and not 
+            else
+            {
+                // pass all the move instructions with 0 as amount
+                moveInstruction mover;
+                switch (first)
+                {
+                case 'q':
+                    // call quit
+                    return;
+                    break;
+                case 's':
+                    mover.direction = "s";
+                    mover.numMovments = 0;
+                    // movment func
+                    return;
+                    break;
+                case 'w':
+                    mover.direction = "w";
+                    mover.numMovments = 0;
+                    // movment func
+                    return;
+                    break;
+                case 'a':
+                    mover.direction = "a";
+                    mover.numMovments = 0;
+                    // movment func
+                    return;
+                    break;
+                case 'd':
+                    mover.direction = "d";
+                    mover.numMovments = 0;
+                    // movment func
+                    return;
+                    break;
+                case 'r':
+                    //redo func
+                    return;
+                    break;
+                case 'u':
+                    //undo func
+                    return;
+                    break;
+                }
+
+               
+            }
+        }
+        else if (currentCommand.size() == 4 && (currentCommand.find("save") != string::npos)) // if size for and not
         {
             cout << "Save command must have a path" << '\n';
-            return; 
-        }else if((currentCommand.find("save") != string::npos) && (currentCommand.at(4) == ' ') && currentCommand.size() > 5 )
-        {
-             string saveFilename = currentCommand.substr(currentCommand.find(" "));
-             //savefile(saveFilename);
-             return;
+            return;
         }
-
-    }else{
-        cout << "\"" << currentCommand << "\" " << "is not a recognized command" << '\n'; 
+        else if ((currentCommand.find("save") != string::npos) && (currentCommand.at(4) == ' ') && currentCommand.size() > 5)
+        {
+            string saveFilename = currentCommand.substr(currentCommand.find(" "));
+            // savefile(saveFilename);
+            return;
+        }
+        else if (first == 'i' && currentCommand.size() > 2 && currentCommand.at(1) == ' ')
+        {
+            string toInsert = currentCommand.substr(currentCommand.find(" "));
+            // insert(toInsert);
+            return;
+        }
+    }
+    else
+    {
+        cout << "\"" << currentCommand << "\" "
+             << "is not a recognized command" << '\n';
         return;
     }
     string command = currentCommand.substr(0, currentCommand.find(" "));
 
-
-
-
-    //if first part is q set thing to true, if first part is w a s d move w a s d, and if theres a number after
-    // if s then call save and move filename to func and save, if i then call insert and move string section. For undo redo pass a number after(for all of these you may need to pass more vars)
+    // if first part is q set thing to true, if first part is w a s d move w a s d, and if theres a number after
+    //  if s then call save and move filename to func and save, if i then call insert and move string section. For undo redo pass a number after(for all of these you may need to pass more vars)
 }
 
 int main(int argc, char *argv[])
