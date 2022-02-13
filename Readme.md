@@ -181,3 +181,24 @@ i r
 backtrace 
 continue 
 n 
+
+
+input function 
+ - w 10 
+ - r 
+ - ribbion 
+ - ribion_
+ - save
+ - w_
+ - w__
+ - w 10_
+ - w 10__
+ - i
+ - i_asdkf asdf asdf asdf sadf asdf asdf_
+
+
+if first letter is recognized (q, s, w, a, s, d, i, r, u) 
+->if size is 1 pass it to correct funtion, if extra params needed pass error 
+->if size greater then 1 
+    -if find " " is greater then size of string(if not save then say string is not valid input)
+    -if 

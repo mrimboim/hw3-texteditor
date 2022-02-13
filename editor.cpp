@@ -109,8 +109,7 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
     // if statment if prev command is empty and current command is empty out that there is no prevoius command, otherwise
     //  if prev is full and and current is empty do prev if current not empty do current(this being the firsst thing in the if cascade)
     cout << "Enter command: " << '\n';
-    cin >> currentCommand;
-
+    getline(cin, currentCommand);
     if (!currentCommand.empty())
     {
         // possible input bvalidation
@@ -130,10 +129,18 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
     }
 
      //breaking up the string
-    string command = currentCommand.substr(0, currentCommand.find(' '));
-    cout << "current command:" << command << "testifspace" << '\n';
-    string params = currentCommand.substr(currentCommand.find(' '));
-    cout << "current params:" << params << "teststring" << '\n';
+    cout << "size of string : " << currentCommand.size() << '\n';
+    char first = currentCommand.at(0);
+    if(first == 'q' || first == 's' || first == 'w' || first == 'a' || first == 'd' ||  first == 'i' || first == 'r' || first == 'u' ||)
+    {
+
+    }else{
+        cout << "\"" << currentCommand << "\" " << "is not a recognized command" << '\n'; 
+    }
+    string command = currentCommand.substr(0, currentCommand.find(" "))
+
+
+
 
     //if first part is q set thing to true, if first part is w a s d move w a s d, and if theres a number after
     // if s then call save and move filename to func and save, if i then call insert and move string section. For undo redo pass a number after(for all of these you may need to pass more vars)
@@ -187,7 +194,7 @@ int main(int argc, char *argv[])
     while (exitStatus == false)
     {
         display(row, col, topLine, buffer); // buffer -> void func
-        // input(exitStatus, prevCommand, row, col, topLine, undo, redo)-> void func
+        input(exitStatus, prevCommand, row, col, topLine, undo, redo);
         exitStatus = true; // erase after input is able to take in exits
     }
 
