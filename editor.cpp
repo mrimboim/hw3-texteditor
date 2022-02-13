@@ -68,9 +68,27 @@ void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<strin
     }
     else if (mover.direction == "a")
     {
+        if (col == 0)
+        {
+            return;
+        }
+        else
+        {
+            col--;
+            return;
+        }
     }
     else if (mover.direction == "d")
     {
+        if (col == (MAX_WIDTH - 1))
+        {
+            return;
+        }
+        else
+        {
+            col++;
+            return;
+        }
     }
 }
 
