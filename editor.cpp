@@ -22,6 +22,25 @@ void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<strin
 {
     if (mover.direction == "w")
     {
+        if (row == 0 && topLine == 1)
+        {
+            return;
+        }
+        else if ((topLine) == (int)buffer.size())
+        {
+            topLine--;
+            return;
+        }
+        else if (row == 0)
+        {
+            topLine--;
+            return;
+        }
+        else
+        {
+            row--;
+            return;
+        }
     }
     else if (mover.direction == "s")
     {
