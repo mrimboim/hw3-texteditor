@@ -196,6 +196,13 @@ input function
  - i
  - i_asdkf asdf asdf asdf sadf asdf asdf_
 
+insert
+save 
+q 
+u 
+r 
+
+w number 
 
 if first letter is recognized (q, s, w, a, s, d, i, r, u) 
 ->if size is 1 pass it to correct funtion, if extra params needed pass error 

@@ -10,7 +10,7 @@ using namespace std;
 
 #define MAX_WIDTH 20        // Maximum size of a line
 #define MAX_LINES 30        // Maximum number of lines
-#define MAX_SCREEN_HEIGHT 5 // number of lines displayed
+#define MAX_SCREEN_HEIGHT 10 // number of lines displayed
 
 struct moveInstruction
 {
@@ -18,6 +18,10 @@ struct moveInstruction
     int numMovments;
 };
 
+void quit(bool &exitStatus)//put freaking stack thing 
+{
+    exitStatus = true;
+}
 int openFile(string fileName, vector<string> &buffer) // later add pass by ref for data struct
 {
     string line;
@@ -107,8 +111,9 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
     string currentCommand;
     // if statment if prev command is empty and current command is empty out that there is no prevoius command, otherwise
     //  if prev is full and and current is empty do prev if current not empty do current(this being the firsst thing in the if cascade)
-    cout << "Enter command: " << '\n';
+    cout << "Enter command: ";
     getline(cin, currentCommand);
+    cout << '\n';
     if (!currentCommand.empty())
     {
         // possible input bvalidation
@@ -127,7 +132,6 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
     }
 
     // breaking up the string
-    cout << "size of string : " << currentCommand.size() << '\n';
     char first = currentCommand.at(0);
     if (first == 'q' || first == 's' || first == 'w' || first == 'a' || first == 'd' || first == 'i' || first == 'r' || first == 'u')
     {
@@ -145,7 +149,7 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
                 switch (first)
                 {
                 case 'q':
-                    // call quit
+                    quit(exitStatus);
                     return;
                     break;
                 case 's':
@@ -202,6 +206,42 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
             // insert(toInsert);
             return;
         }
+        else if(first == 'w' && currentCommand.size() > 2)
+        {
+            string numMovments = currentCommand.substr(2);
+            moveInstruction mover;
+            mover.numMovments = stoi(numMovments);
+            mover.direction = "w";
+            //call move
+            return;
+        }
+        else if(first == 'a' && currentCommand.size() > 2)
+        {
+            string numMovments = currentCommand.substr(2);
+            moveInstruction mover;
+            mover.numMovments = stoi(numMovments);
+            mover.direction = "a";
+            //call move
+            return;
+        }
+        else if(first == 's' && currentCommand.size() > 2)
+        {
+            string numMovments = currentCommand.substr(2);
+            moveInstruction mover;
+            mover.numMovments = stoi(numMovments);
+            mover.direction = "s";
+            //call move
+            return;
+        }
+        else if(first == 'd' && currentCommand.size() > 2)
+        {
+            string numMovments = currentCommand.substr(2);
+            moveInstruction mover;
+            mover.numMovments = stoi(numMovments);
+            mover.direction = "d";
+            //call move
+            return;
+        }
     }
     else
     {
@@ -209,7 +249,8 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
              << "is not a recognized command" << '\n';
         return;
     }
-    string command = currentCommand.substr(0, currentCommand.find(" "));
+    
+
 
     // if first part is q set thing to true, if first part is w a s d move w a s d, and if theres a number after
     //  if s then call save and move filename to func and save, if i then call insert and move string section. For undo redo pass a number after(for all of these you may need to pass more vars)
@@ -264,7 +305,7 @@ int main(int argc, char *argv[])
     {
         display(row, col, topLine, buffer); // buffer -> void func
         input(exitStatus, prevCommand, row, col, topLine, undo, redo);
-        exitStatus = true; // erase after input is able to take in exits
+        // erase after input is able to take in exits
     }
 
     cout << "Goodbye!" << '\n';
