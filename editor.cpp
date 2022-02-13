@@ -18,7 +18,7 @@ struct moveInstruction
     int numMovments;
 };
 
-void insert(int &row, int &col, int &topLine, stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer, string toInsert)
+void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer, string toInsert)
 {
     undo.push(buffer);
     cout << "WHAT IS out before: " << buffer[row + topLine - 1] << '\n';
@@ -54,21 +54,22 @@ void insert(int &row, int &col, int &topLine, stack<vector<string>> &undo, stack
     cout << "next string next line:" << nextSub << '\n';
     while ((int)nextSub.size() > 0)
     {
-        if (row + topLine > (int)buffer.size() - 1) // might be one off
+        if ((row + topLine > (int)buffer.size() - 1) && (row + topLine < MAX_LINES )) // might be one off
         {
             spaceLeft = (MAX_WIDTH - 1) - col;
 
-           
-                if (spaceLeft >= (int)nextSub.size())
-                {
-                    postionInsertString = (int)nextSub.size();
-                }
-                else
-                {
-                    postionInsertString = spaceLeft + 1;
-                }
+            if (spaceLeft >= (int)nextSub.size())
+            {
+                postionInsertString = (int)nextSub.size();
+            }
+            else
+            {
+                postionInsertString = spaceLeft + 1;
+            }
             buffer.push_back(nextSub.substr(0, postionInsertString));
             nextSub = nextSub.substr((postionInsertString));
+             cout << "next string next line:" << nextSub << '\n';
+            topLine++;
         }
         else
         {
