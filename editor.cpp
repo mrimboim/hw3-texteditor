@@ -33,32 +33,49 @@ void insert(int &row, int &col, int &topLine, stack<vector<string>> &undo, stack
         buffer[row + topLine - 1].insert(wheretoinsert, howmanytoinsert, 'X');
     }
     cout << "AIZE OF INPUT TO INSERT:" << (int)toInsert.size() << '\n';
-    int spaceLeft =  (MAX_WIDTH - 1 )- col;
+    int spaceLeft = (MAX_WIDTH - 1) - col;
     cout << "Spaceleft:" << spaceLeft << '\n';
     int postionInsertString;
-    if(spaceLeft >= (int)toInsert.size())
+    if (spaceLeft >= (int)toInsert.size())
     {
         postionInsertString = (int)toInsert.size();
-    }else{
+    }
+    else
+    {
         postionInsertString = spaceLeft + 1;
     }
-    buffer[row + topLine - 1].replace(col ,(postionInsertString), toInsert.substr(0, postionInsertString));
-    //int postionInsertString = 
-    cout << "size of substr" << toInsert.substr(0, postionInsertString) << "::" <<'\n';
+    buffer[row + topLine - 1].replace(col, (postionInsertString), toInsert.substr(0, postionInsertString));
+    // int postionInsertString =
+    cout << "size of substr" << toInsert.substr(0, postionInsertString) << "::" << '\n';
     cout << "WHAT IS out after: " << buffer[row + topLine - 1] << '\n';
     int startingPoint = postionInsertString;
     string nextSub = toInsert.substr(startingPoint);
-    cout << "next string next line:" << nextSub <<'\n';
-     while(nextSub.size() -1 > 0)
+    col = 0;
+    cout << "next string next line:" << nextSub << '\n';
+    while ((int)nextSub.size() > 0)
     {
-        if(row + topLine > buffer.size())//might be one off
+        if (row + topLine > (int)buffer.size() - 1) // might be one off
         {
-            buffer.push_back()
+            spaceLeft = (MAX_WIDTH - 1) - col;
+
+           
+                if (spaceLeft >= (int)nextSub.size())
+                {
+                    postionInsertString = (int)nextSub.size();
+                }
+                else
+                {
+                    postionInsertString = spaceLeft + 1;
+                }
+            buffer.push_back(nextSub.substr(0, postionInsertString));
+            nextSub = nextSub.substr((postionInsertString));
         }
-
+        else
+        {
+            nextSub = "";
+            cout << "this one ran" << '\n';
+        }
     }
-
-
 }
 void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<string> &buffer)
 {
