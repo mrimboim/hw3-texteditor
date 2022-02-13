@@ -32,8 +32,19 @@ void insert(int &row, int &col, int &topLine, stack<vector<string>> &undo, stack
 
         buffer[row + topLine - 1].insert(wheretoinsert, howmanytoinsert, 'X');
     }
+    cout << "AIZE OF INPUT TO INSERT:" << (int)toInsert.size() << '\n';
+    int spaceLeft =  (MAX_WIDTH - 1 )- col;
+    cout << "Spaceleft:" << spaceLeft << '\n';
+    int postionInsertString;
+    if(spaceLeft >= (int)toInsert.size())
+    {
+        postionInsertString = (int)toInsert.size();
+    }else{
+        postionInsertString = spaceLeft;
+    }
+    buffer[row + topLine - 1].replace(col,(col + postionInsertString), toInsert.substr(0, postionInsertString));
+    //int postionInsertString = 
 
-    // buffer[row + topLine - 1].replace(1,7,"asd");
     cout << "WHAT IS out after: " << buffer[row + topLine - 1] << '\n';
 }
 void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<string> &buffer)
@@ -136,7 +147,7 @@ int openFile(string fileName, vector<string> &buffer) // later add pass by ref f
         while (getline(file, line))
         {
             // cout << line << "   size of line: " << line.size() << '\n';
-            if (line.size() > MAX_WIDTH)
+            if (line.size() > MAX_WIDTH + 1)
             {
                 file.close();
                 return 3;
