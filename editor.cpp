@@ -64,7 +64,7 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
         int howmanytoinsert = (col - wheretoinsert);
        // cout << "howmany:" << howmanytoinsert << '\n';
 
-        buffer[row + topLine - 1].insert(wheretoinsert, howmanytoinsert, 'X');
+        buffer[row + topLine - 1].insert(wheretoinsert, howmanytoinsert, ' ');
     }
    // cout << "AIZE OF INPUT TO INSERT:" << (int)toInsert.size() << '\n';
     int spaceLeft = (MAX_WIDTH - 1) - col;
@@ -106,7 +106,7 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
             topLine++;
         }
         else
-        {
+        { 
             topLine++;
            // cout << "this one ran" << '\n';//PROBLEM IS DOWN HERE
             spaceLeft = (MAX_WIDTH - 1) - col; 
@@ -552,14 +552,14 @@ int main(int argc, char *argv[])
     while (exitStatus == false)
     {
         display(row, col, topLine, buffer); // buffer -> void func
-        // try
-        // {
+        try
+        {
             input(exitStatus, prevCommand, row, col, topLine, undo, redo, buffer);
-       // }
-        //catch (const std::exception &ex)
-      //  {
-            //cout << "SoMeThInG wEnT WoNg" << '\n';
-       // }
+       }
+        catch (const std::exception &ex)
+       {
+            cout << "SoMeThInG wEnT WoNg" << '\n';
+       }
     }
 
     cout << "Goodbye!" << '\n';
