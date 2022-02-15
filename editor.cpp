@@ -12,18 +12,22 @@ using namespace std;
 #define MAX_LINES 30         // Maximum number of lines
 #define MAX_SCREEN_HEIGHT 10 // number of lines displayed
 
+int sizeUndosave = 0;
+int sizeRedosave = 0;
+vector<string> saveBuffer;
+
 struct moveInstruction
 {
     string direction;
     int numMovments;
 };
 
-void undoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer)
+void redoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer)
 {
     if(!redo.empty())
     {
+        undo.push(buffer);
         buffer = redo.top();
-        undo.push(redo.top());
         redo.pop();
     }
     else
@@ -35,8 +39,8 @@ void undoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<s
 {
     if(!undo.empty())
     {
+        redo.push(buffer);
         buffer = undo.top();
-        redo.push(undo.top());
         undo.pop();
     }
     else
@@ -198,9 +202,9 @@ void move(int &row, int &col, int &topLine, moveInstruction &mover, vector<strin
         }
     }
 }
-
 void savefile(const string &saveFilename, const vector<string> &buffer)
 {
+
     fstream savingFile;
     savingFile.open(saveFilename, fstream::in | fstream::out | fstream::trunc);
     int i;
@@ -210,9 +214,47 @@ void savefile(const string &saveFilename, const vector<string> &buffer)
     }
     savingFile.close();
 }
-void quit(bool &exitStatus) // put freaking stack thing
+void quit(bool &exitStatus, stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer) // put freaking stack thing
 {
-    exitStatus = true;
+    //cout << "size save"
+    if(!(saveBuffer == buffer))
+    {
+        string quitVar;
+        cout << "You have unsaved changes." << '\n';
+        cout << "Are you sure you want to quit (y or n)?" << '\n';
+        getline(cin, quitVar);
+        if(quitVar == "n")
+        {
+            return;
+        }
+        else{
+            exitStatus = true;
+            return;
+        }
+    }
+    else if(sizeUndosave != (int)undo.size())
+    {
+        string quitVar;
+        cout << "You have unsaved changes." << '\n';
+        cout << "Are you sure you want to quit (y or n)?" << '\n';
+        getline(cin, quitVar);
+        if(quitVar == "n")
+        {
+
+            return;
+        }
+        else{
+
+            exitStatus = true;
+            return;
+        }
+    }
+    else
+    {
+        exitStatus = true;
+        return;
+    }
+   
 }
 int openFile(string fileName, vector<string> &buffer) // later add pass by ref for data struct
 {
@@ -248,7 +290,6 @@ int openFile(string fileName, vector<string> &buffer) // later add pass by ref f
         return 1;
     }
 }
-
 void display(const int &row, const int &col, const int &topLine, const vector<string> &buffer)
 {
     // print out cursor postion using col
@@ -297,7 +338,6 @@ void display(const int &row, const int &col, const int &topLine, const vector<st
 
     cout << right << setw(MAX_WIDTH + 5) << windowBorder << '\n'; // BOTTOM WINDOW BORDER
 }
-
 void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLine, stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer)
 {
     string currentCommand;
@@ -341,7 +381,7 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
                 switch (first)
                 {
                 case 'q':
-                    quit(exitStatus);
+                    quit(exitStatus, undo, redo, buffer);
                     return;
                     break;
                 case 's':
@@ -369,7 +409,7 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
                     return;
                     break;
                 case 'r':
-                    //redo(undo, redo, buffer);
+                    redoFunc(undo, redo, buffer);
                     return;
                     break;
                 case 'u':
@@ -387,6 +427,9 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
         else if ((currentCommand.find("save") != string::npos) && (currentCommand.at(4) == ' ') && currentCommand.size() > 5)
         {
             string saveFilename = currentCommand.substr(currentCommand.find(" ") + 1);
+            sizeUndosave = undo.size();
+            sizeRedosave = redo.size();
+            saveBuffer = buffer;
             savefile(saveFilename, buffer);
             return;
         }
@@ -505,6 +548,7 @@ int main(int argc, char *argv[])
     string prevCommand;
     stack<vector<string>> undo;
     stack<vector<string>> redo;
+    saveBuffer = buffer;
     while (exitStatus == false)
     {
         display(row, col, topLine, buffer); // buffer -> void func
