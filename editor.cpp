@@ -8,8 +8,8 @@
 
 using namespace std;
 
-#define MAX_WIDTH 200        // Maximum size of a line
-#define MAX_LINES 30         // Maximum number of lines
+#define MAX_WIDTH 20        // Maximum size of a line
+#define MAX_LINES  30       // Maximum number of lines
 #define MAX_SCREEN_HEIGHT 10 // number of lines displayed
 
 int sizeUndosave = 0;
