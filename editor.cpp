@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define MAX_WIDTH 20        // Maximum size of a line
+#define MAX_WIDTH 20      // Maximum size of a line
 #define MAX_LINES  30       // Maximum number of lines
 #define MAX_SCREEN_HEIGHT 10 // number of lines displayed
 
@@ -36,7 +36,12 @@ void compile(string filenamey)
         return;
     }else
     {
-        std::system("./a.out"); // run
+        string argss;
+        cout << "any args: ";
+        getline(cin, argss);
+        argss = "./a.out " + argss;
+        const char *bam = argss.c_str();
+        std::system(bam); // run
     }
 }
 void redoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer)
