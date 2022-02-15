@@ -74,19 +74,23 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
         else
         {
             topLine++;
-            nextSub = "";
             cout << "this one ran" << '\n';//PROBLEM IS DOWN HERE
-            spaceLeft = (MAX_WIDTH - 1) - col;
+            spaceLeft = (MAX_WIDTH - 1) - col; 
+            
             if (spaceLeft >= (int)nextSub.size())
             {
                 postionInsertString = (int)nextSub.size();
+                 cout << "yo yo you its tobi lou" << '\n';//PROBLEM IS DOWN HERE
             }
             else
             {
                 postionInsertString = spaceLeft + 1;
+                 cout << "everybeen so hungry you just oop " << '\n';//PROBLEM IS DOWN HERE
             }
+            cout << "next string next line:" << nextSub << '\n';
             buffer[row + topLine - 1].replace(col, (postionInsertString), nextSub.substr(0, postionInsertString));
             nextSub = nextSub.substr(postionInsertString);
+            cout << "next string next line:" << nextSub << '\n';
         }
     }
 }
