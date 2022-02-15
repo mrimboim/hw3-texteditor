@@ -18,23 +18,53 @@ struct moveInstruction
     int numMovments;
 };
 
+void undoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer)
+{
+    if(!redo.empty())
+    {
+        buffer = redo.top();
+        undo.push(redo.top());
+        redo.pop();
+    }
+    else
+    {
+        cout << "Cannot redo." << '\n';
+    }
+}
+void undoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer)
+{
+    if(!undo.empty())
+    {
+        buffer = undo.top();
+        redo.push(undo.top());
+        undo.pop();
+    }
+    else
+    {
+        cout << "Cannot undo." << '\n';
+    }
+}
 void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer, string toInsert)
 {
     undo.push(buffer);
-    cout << "WHAT IS out before: " << buffer[row + topLine - 1] << '\n';
+    while(!redo.empty())
+    {
+        redo.pop();
+    }
+    //cout << "WHAT IS out before: " << buffer[row + topLine - 1] << '\n';
     if (col > (int)buffer[row + topLine - 1].size() - 1)
     {
         string tempString = buffer[row + topLine - 1];
         int wheretoinsert = ((int)buffer[row + topLine - 1].size() - 1);
-        cout << "where:" << wheretoinsert << '\n';
+       // cout << "where:" << wheretoinsert << '\n';
         int howmanytoinsert = (col - wheretoinsert);
-        cout << "howmany:" << howmanytoinsert << '\n';
+       // cout << "howmany:" << howmanytoinsert << '\n';
 
         buffer[row + topLine - 1].insert(wheretoinsert, howmanytoinsert, 'X');
     }
-    cout << "AIZE OF INPUT TO INSERT:" << (int)toInsert.size() << '\n';
+   // cout << "AIZE OF INPUT TO INSERT:" << (int)toInsert.size() << '\n';
     int spaceLeft = (MAX_WIDTH - 1) - col;
-    cout << "Spaceleft:" << spaceLeft << '\n';
+   // cout << "Spaceleft:" << spaceLeft << '\n';
     int postionInsertString;
     if (spaceLeft >= (int)toInsert.size())
     {
@@ -46,12 +76,12 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
     }
     buffer[row + topLine - 1].replace(col, (postionInsertString), toInsert.substr(0, postionInsertString));
     // int postionInsertString =
-    cout << "size of substr" << toInsert.substr(0, postionInsertString) << "::" << '\n';
-    cout << "WHAT IS out after: " << buffer[row + topLine - 1] << '\n';
+   // cout << "size of substr" << toInsert.substr(0, postionInsertString) << "::" << '\n';
+   // cout << "WHAT IS out after: " << buffer[row + topLine - 1] << '\n';
     int startingPoint = postionInsertString;
     string nextSub = toInsert.substr(startingPoint);
     col = 0;
-    cout << "next string next line:" << nextSub << '\n';
+   // cout << "next string next line:" << nextSub << '\n';
     while ((int)nextSub.size() > 0)
     {
         if ((row + topLine > (int)buffer.size() - 1) && (row + topLine < MAX_LINES)) // 
@@ -68,29 +98,29 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
             }
             buffer.push_back(nextSub.substr(0, postionInsertString));
             nextSub = nextSub.substr((postionInsertString));
-            cout << "next string next line:" << nextSub << '\n';
+           // cout << "next string next line:" << nextSub << '\n';
             topLine++;
         }
         else
         {
             topLine++;
-            cout << "this one ran" << '\n';//PROBLEM IS DOWN HERE
+           // cout << "this one ran" << '\n';//PROBLEM IS DOWN HERE
             spaceLeft = (MAX_WIDTH - 1) - col; 
             
             if (spaceLeft >= (int)nextSub.size())
             {
                 postionInsertString = (int)nextSub.size();
-                 cout << "yo yo you its tobi lou" << '\n';//PROBLEM IS DOWN HERE
+                // cout << "yo yo you its tobi lou" << '\n';//PROBLEM IS DOWN HERE
             }
             else
             {
                 postionInsertString = spaceLeft + 1;
-                 cout << "everybeen so hungry you just oop " << '\n';//PROBLEM IS DOWN HERE
+               //  cout << "everybeen so hungry you just oop " << '\n';//PROBLEM IS DOWN HERE
             }
-            cout << "next string next line:" << nextSub << '\n';
+           // cout << "next string next line:" << nextSub << '\n';
             buffer[row + topLine - 1].replace(col, (postionInsertString), nextSub.substr(0, postionInsertString));
             nextSub = nextSub.substr(postionInsertString);
-            cout << "next string next line:" << nextSub << '\n';
+           // cout << "next string next line:" << nextSub << '\n';
         }
     }
 }
@@ -339,11 +369,11 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
                     return;
                     break;
                 case 'r':
-                    // redo func
+                    //redo(undo, redo, buffer);
                     return;
                     break;
                 case 'u':
-                    // undo func
+                    undoFunc(undo, redo, buffer);
                     return;
                     break;
                 }
