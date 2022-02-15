@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define MAX_WIDTH 20         // Maximum size of a line
+#define MAX_WIDTH 200        // Maximum size of a line
 #define MAX_LINES 30         // Maximum number of lines
 #define MAX_SCREEN_HEIGHT 10 // number of lines displayed
 
@@ -21,7 +21,24 @@ struct moveInstruction
     string direction;
     int numMovments;
 };
-
+void compile(string filenamey)
+{
+     
+    string filethingy = "g++ " + filenamey;
+    
+    const char *bloop = filethingy.c_str();
+    std::system(bloop); // compile
+    string inny;
+    cout << "Would you like to run as well (y or n)" << '\n';
+    getline(cin, inny);
+    if(inny == "n")
+    {
+        return;
+    }else
+    {
+        std::system("./a.out"); // run
+    }
+}
 void redoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer)
 {
     if(!redo.empty())
@@ -365,7 +382,7 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
 
     // breaking up the string
     char first = currentCommand.at(0);
-    if (first == 'q' || first == 's' || first == 'w' || first == 'a' || first == 'd' || first == 'i' || first == 'r' || first == 'u')
+    if (first == 'q' || first == 's' || first == 'w' || first == 'a' || first == 'd' || first == 'i' || first == 'r' || first == 'u' || first == 'c')
     {
         if (currentCommand.size() == 1) // if it is an input that needs to extra params then pass otherwise error
         {
@@ -437,6 +454,12 @@ void input(bool &exitStatus, string &prevCommand, int &row, int &col, int &topLi
         {
             string toInsert = currentCommand.substr(currentCommand.find(" ") + 1);
             insert(row, col, topLine, undo, redo, buffer, toInsert);
+            return;
+        }
+        else if (first == 'c' && currentCommand.size() > 2 && currentCommand.at(1) == ' ')
+        {
+            string toInsert = currentCommand.substr(currentCommand.find(" ") + 1);
+            compile(toInsert);
             return;
         }
         else if (first == 'w' && currentCommand.size() > 2)
