@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define MAX_WIDTH 20      // Maximum size of a line
+#define MAX_WIDTH 20   // Maximum size of a line
 #define MAX_LINES  30       // Maximum number of lines
 #define MAX_SCREEN_HEIGHT 10 // number of lines displayed
 
@@ -54,7 +54,7 @@ void redoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<s
     }
     else
     {
-        cout << "Cannot redo." << '\n';
+        cout << "Cannot redo." << '\n' << '\n';
     }
 }
 void undoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer)
@@ -67,7 +67,7 @@ void undoFunc(stack<vector<string>> &undo, stack<vector<string>> &redo, vector<s
     }
     else
     {
-        cout << "Cannot undo." << '\n';
+        cout << "Cannot undo." << '\n' << '\n';
     }
 }
 void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<vector<string>> &redo, vector<string> &buffer, string toInsert)
@@ -86,7 +86,7 @@ void insert(int row, int col, int topLine, stack<vector<string>> &undo, stack<ve
         int howmanytoinsert = (col - wheretoinsert);
        // cout << "howmany:" << howmanytoinsert << '\n';
 
-        buffer[row + topLine - 1].insert(wheretoinsert, howmanytoinsert, ' ');
+        buffer[row + topLine - 1].insert(wheretoinsert + 1, howmanytoinsert, ' ');
     }
    // cout << "AIZE OF INPUT TO INSERT:" << (int)toInsert.size() << '\n';
     int spaceLeft = (MAX_WIDTH - 1) - col;
